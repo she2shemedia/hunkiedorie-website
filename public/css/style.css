@@ -905,3 +905,52 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
 @media (prefers-reduced-motion: reduce) {
   .fireflies span { animation: none; opacity: .55; }
 }
+
+/* ---------- Drifting clouds and rising mist (home-page hero) ----------
+   Soft, slow, see-through shapes made only from gradients, so there are no extra
+   picture files. Layer order (back to front): clouds, mist, fireflies, kite, title,
+   which is why nothing hides the fireflies or the title.
+   Clouds: --top/--h set height in the sky, --w their width, --t how many seconds one
+   crossing takes (longer = slower), --k how dense they are (1 = full, 0 = invisible).
+   Mist: --l/--w sit it along the ground, --t is how long one puff takes to rise. */
+.sky-clouds, .ground-mist { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.sky-clouds span {
+  position: absolute;
+  left: 0;
+  top: calc(var(--top) * 1%);
+  width: calc(var(--w) * 1%);
+  height: calc(var(--h) * 1%);
+  opacity: var(--k);
+  background:
+    radial-gradient(ellipse 26% 44% at 27% 54%, rgba(120, 132, 196, .50), transparent 100%),
+    radial-gradient(ellipse 30% 48% at 50% 46%, rgba(138, 150, 210, .55), transparent 100%),
+    radial-gradient(ellipse 26% 42% at 73% 56%, rgba(112, 126, 190, .46), transparent 100%),
+    radial-gradient(ellipse 50% 26% at 50% 52%, rgba(196, 206, 244, .22), transparent 100%);
+  translate: -100% 0;
+  animation: cloud-drift var(--t) var(--d) linear infinite;
+  will-change: translate;
+}
+@keyframes cloud-drift { to { translate: var(--end) 0; } }
+
+.ground-mist span {
+  position: absolute;
+  left: calc(var(--l) * 1%);
+  bottom: calc(var(--b) * 1%);
+  width: calc(var(--w) * 1%);
+  height: 30%;
+  background:
+    radial-gradient(ellipse 50% 48% at 50% 50%, rgba(206, 232, 242, .30), rgba(166, 204, 220, .12) 55%, transparent 100%);
+  opacity: 0;
+  animation: mist-rise var(--t) var(--d) ease-in-out infinite;
+  will-change: translate, opacity;
+}
+@keyframes mist-rise {
+  0%   { opacity: 0;  translate: 0 14%; }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  translate: var(--sx) -42%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sky-clouds span { animation: none; translate: 120% 0; }
+  .ground-mist span { animation: none; opacity: .5; translate: 0 -8%; }
+}
