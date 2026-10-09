@@ -910,9 +910,12 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
    Soft, slow, see-through shapes made only from gradients, so there are no extra
    picture files. Layer order (back to front): clouds, mist, fireflies, kite, title,
    which is why nothing hides the fireflies or the title.
-   Clouds: --top/--h set height in the sky, --w their width, --t how many seconds one
-   crossing takes (longer = slower), --k how dense they are (1 = full, 0 = invisible).
-   Mist: --l/--w sit it along the ground, --t is how long one puff takes to rise. */
+   Each cloud's and mist puff's timing is written out in full below (numbered 1, 2, 3...
+   in the same order as the lines in index.html), so every browser can animate it:
+   - Clouds: the number after "cloud-drift-N" is the crossing time. Smaller = faster.
+   - Mist: the number after "mist-rise-N" is how long one puff takes to rise.
+   Sizes and positions (--top, --w, --h, --k for clouds; --l, --w, --b for mist)
+   are still set on each line in index.html. */
 .sky-clouds, .ground-mist { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
 .sky-clouds span {
   position: absolute;
@@ -926,11 +929,18 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
     radial-gradient(ellipse 30% 48% at 50% 46%, rgba(138, 150, 210, .55), transparent 100%),
     radial-gradient(ellipse 26% 42% at 73% 56%, rgba(112, 126, 190, .46), transparent 100%),
     radial-gradient(ellipse 50% 26% at 50% 52%, rgba(196, 206, 244, .22), transparent 100%);
-  translate: -100% 0;
-  animation: cloud-drift var(--t) var(--d) linear infinite;
-  will-change: translate;
+  transform: translateX(-100%);
+  will-change: transform;
 }
-@keyframes cloud-drift { to { translate: var(--end) 0; } }
+.sky-clouds span:nth-child(1) { animation: cloud-drift-1 80s -24s linear infinite; }
+.sky-clouds span:nth-child(2) { animation: cloud-drift-2 100s -58s linear infinite; }
+.sky-clouds span:nth-child(3) { animation: cloud-drift-3 90s -74s linear infinite; }
+.sky-clouds span:nth-child(4) { animation: cloud-drift-4 120s -54s linear infinite; }
+
+@keyframes cloud-drift-1 { from { transform: translateX(-100%); } to { transform: translateX(278%); } }
+@keyframes cloud-drift-2 { from { transform: translateX(-100%); } to { transform: translateX(333%); } }
+@keyframes cloud-drift-3 { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+@keyframes cloud-drift-4 { from { transform: translateX(-100%); } to { transform: translateX(357%); } }
 
 .ground-mist span {
   position: absolute;
@@ -941,16 +951,60 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
   background:
     radial-gradient(ellipse 50% 48% at 50% 50%, rgba(206, 232, 242, .30), rgba(166, 204, 220, .12) 55%, transparent 100%);
   opacity: 0;
-  animation: mist-rise var(--t) var(--d) ease-in-out infinite;
-  will-change: translate, opacity;
+  will-change: transform, opacity;
 }
-@keyframes mist-rise {
-  0%   { opacity: 0;  translate: 0 14%; }
+.ground-mist span:nth-child(1) { animation: mist-rise-1 19s -3s ease-in-out infinite; }
+.ground-mist span:nth-child(2) { animation: mist-rise-2 24s -11s ease-in-out infinite; }
+.ground-mist span:nth-child(3) { animation: mist-rise-3 21s -7s ease-in-out infinite; }
+.ground-mist span:nth-child(4) { animation: mist-rise-4 26s -16s ease-in-out infinite; }
+.ground-mist span:nth-child(5) { animation: mist-rise-5 20s -2s ease-in-out infinite; }
+.ground-mist span:nth-child(6) { animation: mist-rise-6 23s -13s ease-in-out infinite; }
+.ground-mist span:nth-child(7) { animation: mist-rise-7 25s -9s ease-in-out infinite; }
+
+@keyframes mist-rise-1 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
   30%  { opacity: .9; }
   70%  { opacity: .7; }
-  100% { opacity: 0;  translate: var(--sx) -42%; }
+  100% { opacity: 0;  transform: translate(6%, -42%); }
 }
+@keyframes mist-rise-2 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  transform: translate(-5%, -42%); }
+}
+@keyframes mist-rise-3 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  transform: translate(7%, -42%); }
+}
+@keyframes mist-rise-4 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  transform: translate(-6%, -42%); }
+}
+@keyframes mist-rise-5 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  transform: translate(5%, -42%); }
+}
+@keyframes mist-rise-6 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  transform: translate(-7%, -42%); }
+}
+@keyframes mist-rise-7 {
+  0%   { opacity: 0;  transform: translate(0, 14%); }
+  30%  { opacity: .9; }
+  70%  { opacity: .7; }
+  100% { opacity: 0;  transform: translate(4%, -42%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .sky-clouds span { animation: none; translate: 120% 0; }
-  .ground-mist span { animation: none; opacity: .5; translate: 0 -8%; }
+  .sky-clouds span { animation: none !important; transform: translateX(120%); }
+  .ground-mist span { animation: none !important; opacity: .5; transform: translateY(-8%); }
 }
