@@ -76,7 +76,7 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   content: "";
   position: absolute;
   inset: -6px 0 0 0;
-  background: url("../images/paper-strip.png") left top / auto 100% repeat-x;
+  background: url("../images/paper-strip-seamless.png") left top / auto 100% repeat-x;
   filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12));
 }
 .header-inner {
