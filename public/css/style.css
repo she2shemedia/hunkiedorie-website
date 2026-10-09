@@ -1008,3 +1008,28 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
   .sky-clouds span { animation: none !important; transform: translateX(120%); }
   .ground-mist span { animation: none !important; opacity: .5; transform: translateY(-8%); }
 }
+
+/* ---------- Rising moon (home-page hero) ----------
+   moon.png sits between the sky (hero-bg-nomoon.png) and mountain-front.png,
+   so it rises from behind the peak and drifts off the top of the screen.
+   All three pictures are the same size and use the same "cover" crop, so they
+   line up on every screen.
+   To change the speed, edit the 70s below (bigger = slower).
+   The moon starts 17.5% down (hidden behind the peak) and ends 60% up (off the top). */
+.sky-moon { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.sky-moon img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.sky-moon .moon-layer {
+  animation: moon-rise 70s 1s linear both;
+  will-change: transform;
+}
+@keyframes moon-rise {
+  from { transform: translateY(17.5%); }
+  to   { transform: translateY(-60%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sky-moon .moon-layer { animation: none; transform: none; }
+}
