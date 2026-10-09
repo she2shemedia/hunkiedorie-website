@@ -6,6 +6,8 @@ The A. M. French / Hunkie Dorie website, rebuilt as plain HTML and CSS so it can
 
 | File / folder | What it is |
 | --- | --- |
+| `public/` | Everything that gets published. All the files below live inside it |
+| `wrangler.jsonc` | Tells Cloudflare to publish the `public` folder |
 | `index.html` | Home page (hero, paw menu, The Story, The Storyteller, Friends in Need, Hunkie's Cupboard, Busy Paws, Kind Words, video, Letters from Hunkie) |
 | `shop.html` | Hunkie's Cupboard (replaces the Wix store at `/category/all-products`) |
 | `busypaws.html`, `coloringpages.html` | Free printables |

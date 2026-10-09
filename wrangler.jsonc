@@ -1,0 +1,9 @@
+// Tells Cloudflare to publish this folder as a static website.
+{
+  "name": "hunkiedorie-website",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page"
+  }
+}
