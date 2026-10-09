@@ -172,8 +172,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 /* Gentle fade/slide-in, like the Wix entrance animations */
 .reveal { opacity: 0; translate: 0 24px; transition: opacity .9s ease, translate .9s ease; }
 .reveal.is-visible { opacity: 1; translate: 0 0; }
-/* Hero kite: swirls in on the left, flies right BEHIND the title, loops at the far
-   end, then glides back across and hovers on the left, bobbing, for good.
+/* Hero kite: swirls in on the left, flies right BEHIND the title, flips to a mirror image at
+   the far end, then glides back across and hovers on the left, bobbing, for good.
    The outer box does the flight path; the image inside does the swirl and bob.
    --reach = how far right it flies, --dip = how far down it drops to pass behind
    the title (both are % of the kite's own size, so phones get their own values). */
@@ -193,50 +193,50 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   100% { opacity: 1; scale: 1; rotate: 0deg; translate: 0 0; }
 }
 @keyframes kite-fly {
-  0% { translate: calc(var(--reach) * 0.000) calc(var(--dip) * 0.000); rotate: 0deg; }
-  2.5% { translate: calc(var(--reach) * 0.006) calc(var(--dip) * 0.158); rotate: 0deg; }
-  5% { translate: calc(var(--reach) * 0.024) calc(var(--dip) * 0.314); rotate: 0deg; }
-  7.5% { translate: calc(var(--reach) * 0.054) calc(var(--dip) * 0.463); rotate: 0deg; }
-  10% { translate: calc(var(--reach) * 0.095) calc(var(--dip) * 0.602); rotate: 0deg; }
-  12.5% { translate: calc(var(--reach) * 0.146) calc(var(--dip) * 0.726); rotate: 0deg; }
-  15% { translate: calc(var(--reach) * 0.206) calc(var(--dip) * 0.831); rotate: 0deg; }
-  17.5% { translate: calc(var(--reach) * 0.273) calc(var(--dip) * 0.912); rotate: 0deg; }
-  20% { translate: calc(var(--reach) * 0.345) calc(var(--dip) * 0.968); rotate: 0deg; }
-  22.5% { translate: calc(var(--reach) * 0.422) calc(var(--dip) * 0.998); rotate: 0deg; }
-  25% { translate: calc(var(--reach) * 0.500) calc(var(--dip) * 1.000); rotate: 0deg; }
-  27.5% { translate: calc(var(--reach) * 0.578) calc(var(--dip) * 0.976); rotate: 0deg; }
-  30% { translate: calc(var(--reach) * 0.655) calc(var(--dip) * 0.927); rotate: 0deg; }
-  32.5% { translate: calc(var(--reach) * 0.727) calc(var(--dip) * 0.857); rotate: 0deg; }
-  35% { translate: calc(var(--reach) * 0.794) calc(var(--dip) * 0.767); rotate: 0deg; }
-  37.5% { translate: calc(var(--reach) * 0.854) calc(var(--dip) * 0.661); rotate: 0deg; }
-  40% { translate: calc(var(--reach) * 0.905) calc(var(--dip) * 0.543); rotate: 0deg; }
-  42.5% { translate: calc(var(--reach) * 0.946) calc(var(--dip) * 0.415); rotate: 1deg; }
-  45% { translate: calc(var(--reach) * 0.976) calc(var(--dip) * 0.280); rotate: 33deg; }
-  47.5% { translate: calc(var(--reach) * 0.994) calc(var(--dip) * 0.141); rotate: 98deg; }
-  50% { translate: calc(var(--reach) * 1.000) calc(var(--dip) * 0.000); rotate: 180deg; }
-  52.5% { translate: calc(var(--reach) * 0.994) calc(var(--dip) * -0.125); rotate: 262deg; }
-  55% { translate: calc(var(--reach) * 0.976) calc(var(--dip) * -0.249); rotate: 327deg; }
-  57.5% { translate: calc(var(--reach) * 0.946) calc(var(--dip) * -0.369); rotate: 359deg; }
-  60% { translate: calc(var(--reach) * 0.905) calc(var(--dip) * -0.484); rotate: 360deg; }
-  62.5% { translate: calc(var(--reach) * 0.854) calc(var(--dip) * -0.590); rotate: 360deg; }
-  65% { translate: calc(var(--reach) * 0.794) calc(var(--dip) * -0.686); rotate: 360deg; }
-  67.5% { translate: calc(var(--reach) * 0.727) calc(var(--dip) * -0.767); rotate: 360deg; }
-  70% { translate: calc(var(--reach) * 0.655) calc(var(--dip) * -0.832); rotate: 360deg; }
-  72.5% { translate: calc(var(--reach) * 0.578) calc(var(--dip) * -0.877); rotate: 360deg; }
-  75% { translate: calc(var(--reach) * 0.500) calc(var(--dip) * -0.900); rotate: 360deg; }
-  77.5% { translate: calc(var(--reach) * 0.422) calc(var(--dip) * -0.899); rotate: 360deg; }
-  80% { translate: calc(var(--reach) * 0.345) calc(var(--dip) * -0.873); rotate: 360deg; }
-  82.5% { translate: calc(var(--reach) * 0.273) calc(var(--dip) * -0.823); rotate: 360deg; }
-  85% { translate: calc(var(--reach) * 0.206) calc(var(--dip) * -0.750); rotate: 360deg; }
-  87.5% { translate: calc(var(--reach) * 0.146) calc(var(--dip) * -0.656); rotate: 360deg; }
-  90% { translate: calc(var(--reach) * 0.095) calc(var(--dip) * -0.544); rotate: 360deg; }
-  92.5% { translate: calc(var(--reach) * 0.054) calc(var(--dip) * -0.418); rotate: 360deg; }
-  95% { translate: calc(var(--reach) * 0.024) calc(var(--dip) * -0.283); rotate: 360deg; }
-  97.5% { translate: calc(var(--reach) * 0.006) calc(var(--dip) * -0.142); rotate: 360deg; }
-  100% { translate: calc(var(--reach) * 0.000) calc(var(--dip) * -0.000); rotate: 360deg; }
+  0% { translate: calc(var(--reach) * 0.000) calc(var(--dip) * 0.000); scale: 1.000 1; }
+  2.5% { translate: calc(var(--reach) * 0.006) calc(var(--dip) * 0.158); scale: 1.000 1; }
+  5% { translate: calc(var(--reach) * 0.024) calc(var(--dip) * 0.314); scale: 1.000 1; }
+  7.5% { translate: calc(var(--reach) * 0.054) calc(var(--dip) * 0.463); scale: 1.000 1; }
+  10% { translate: calc(var(--reach) * 0.095) calc(var(--dip) * 0.602); scale: 1.000 1; }
+  12.5% { translate: calc(var(--reach) * 0.146) calc(var(--dip) * 0.726); scale: 1.000 1; }
+  15% { translate: calc(var(--reach) * 0.206) calc(var(--dip) * 0.831); scale: 1.000 1; }
+  17.5% { translate: calc(var(--reach) * 0.273) calc(var(--dip) * 0.912); scale: 1.000 1; }
+  20% { translate: calc(var(--reach) * 0.345) calc(var(--dip) * 0.968); scale: 1.000 1; }
+  22.5% { translate: calc(var(--reach) * 0.422) calc(var(--dip) * 0.998); scale: 1.000 1; }
+  25% { translate: calc(var(--reach) * 0.500) calc(var(--dip) * 1.000); scale: 1.000 1; }
+  27.5% { translate: calc(var(--reach) * 0.578) calc(var(--dip) * 0.976); scale: 1.000 1; }
+  30% { translate: calc(var(--reach) * 0.655) calc(var(--dip) * 0.927); scale: 1.000 1; }
+  32.5% { translate: calc(var(--reach) * 0.727) calc(var(--dip) * 0.857); scale: 1.000 1; }
+  35% { translate: calc(var(--reach) * 0.794) calc(var(--dip) * 0.767); scale: 1.000 1; }
+  37.5% { translate: calc(var(--reach) * 0.854) calc(var(--dip) * 0.661); scale: 1.000 1; }
+  40% { translate: calc(var(--reach) * 0.905) calc(var(--dip) * 0.543); scale: 1.000 1; }
+  42.5% { translate: calc(var(--reach) * 0.946) calc(var(--dip) * 0.415); scale: 0.994 1; }
+  45% { translate: calc(var(--reach) * 0.976) calc(var(--dip) * 0.280); scale: 0.815 1; }
+  47.5% { translate: calc(var(--reach) * 0.994) calc(var(--dip) * 0.141); scale: 0.453 1; }
+  50% { translate: calc(var(--reach) * 1.000) calc(var(--dip) * 0.000); scale: -0.000 1; }
+  52.5% { translate: calc(var(--reach) * 0.994) calc(var(--dip) * -0.125); scale: -0.453 1; }
+  55% { translate: calc(var(--reach) * 0.976) calc(var(--dip) * -0.249); scale: -0.815 1; }
+  57.5% { translate: calc(var(--reach) * 0.946) calc(var(--dip) * -0.369); scale: -0.994 1; }
+  60% { translate: calc(var(--reach) * 0.905) calc(var(--dip) * -0.484); scale: -1.000 1; }
+  62.5% { translate: calc(var(--reach) * 0.854) calc(var(--dip) * -0.590); scale: -1.000 1; }
+  65% { translate: calc(var(--reach) * 0.794) calc(var(--dip) * -0.686); scale: -1.000 1; }
+  67.5% { translate: calc(var(--reach) * 0.727) calc(var(--dip) * -0.767); scale: -1.000 1; }
+  70% { translate: calc(var(--reach) * 0.655) calc(var(--dip) * -0.832); scale: -1.000 1; }
+  72.5% { translate: calc(var(--reach) * 0.578) calc(var(--dip) * -0.877); scale: -1.000 1; }
+  75% { translate: calc(var(--reach) * 0.500) calc(var(--dip) * -0.900); scale: -1.000 1; }
+  77.5% { translate: calc(var(--reach) * 0.422) calc(var(--dip) * -0.899); scale: -1.000 1; }
+  80% { translate: calc(var(--reach) * 0.345) calc(var(--dip) * -0.873); scale: -1.000 1; }
+  82.5% { translate: calc(var(--reach) * 0.273) calc(var(--dip) * -0.823); scale: -1.000 1; }
+  85% { translate: calc(var(--reach) * 0.206) calc(var(--dip) * -0.750); scale: -1.000 1; }
+  87.5% { translate: calc(var(--reach) * 0.146) calc(var(--dip) * -0.656); scale: -1.000 1; }
+  90% { translate: calc(var(--reach) * 0.095) calc(var(--dip) * -0.544); scale: -1.000 1; }
+  92.5% { translate: calc(var(--reach) * 0.054) calc(var(--dip) * -0.418); scale: -1.000 1; }
+  95% { translate: calc(var(--reach) * 0.024) calc(var(--dip) * -0.283); scale: -1.000 1; }
+  97.5% { translate: calc(var(--reach) * 0.006) calc(var(--dip) * -0.142); scale: -1.000 1; }
+  100% { translate: calc(var(--reach) * 0.000) calc(var(--dip) * -0.000); scale: -1.000 1; }
 }
 @keyframes kite-bob {
-  0%, 100% { translate: 0 0; rotate: 0deg; }
+  0%, 100% { translate: 0 0; scale: -1.000 1; }
   30%      { translate: 4% -6%; rotate: 5deg; }
   65%      { translate: -3% 3%; rotate: -4deg; }
 }
