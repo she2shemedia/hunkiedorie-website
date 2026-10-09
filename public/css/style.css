@@ -179,13 +179,13 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
    swirl and bob. Every step is spelled out in plain numbers (no formulas) so
    browsers can animate it smoothly. Phones get their own flight path below. */
 .hero .kite {
-  animation: kite-fly 16s 2.4s linear both;
+  animation: kite-fly 16s 9s linear both;
   will-change: translate, scale;
 }
 .hero .kite img {
   animation:
-    kite-swirl 2.4s linear both,
-    kite-bob 5s 2.4s ease-in-out infinite;
+    kite-swirl 9s linear both,
+    kite-bob 5s 9s ease-in-out infinite;
   will-change: translate, scale, rotate;
   backface-visibility: hidden;
 }
