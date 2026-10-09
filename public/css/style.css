@@ -1014,21 +1014,30 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
    so it rises from behind the peak and drifts off the top of the screen.
    All three pictures are the same size and use the same "cover" crop, so they
    line up on every screen.
-   To change the speed, edit the 70s below (bigger = slower).
-   The moon starts 17.5% down (hidden behind the peak) and ends 60% up (off the top). */
-.sky-moon { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+   The moon and mountain stay hidden, and the animation stays paused, until the
+   main sky picture has finished loading (the little script on the sky <img> in
+   index.html adds the class "bg-ready"), so they never show up before the sky.
+   Speed: one full cycle is 74s (about 70s of rising, then a short pause, and then
+   it starts over). Change the 74s below, and the 94.6% line if you want a longer
+   or shorter gap before it comes back (94.6% = 70s of 74s).
+   The moon starts 17.5% down (hidden behind the peak) and ends 58% up (off the top). */
+.sky-moon { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 1.5s ease; }
+.hero.bg-ready .sky-moon { opacity: 1; }
 .sky-moon img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
 }
 .sky-moon .moon-layer {
-  animation: moon-rise 70s 1s linear both;
+  animation: moon-rise 74s 1s linear infinite both;
+  animation-play-state: paused;
   will-change: transform;
 }
+.hero.bg-ready .sky-moon .moon-layer { animation-play-state: running; }
 @keyframes moon-rise {
-  from { transform: translateY(17.5%); }
-  to   { transform: translateY(-60%); }
+  0%    { transform: translateY(17.5%); }
+  94.6% { transform: translateY(-58%); }
+  100%  { transform: translateY(-58%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .sky-moon .moon-layer { animation: none; transform: none; }

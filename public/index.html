@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cutive&family=Poppins:wght@200;300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+  <noscript><style>.hero .sky-moon{opacity:1 !important}.hero .sky-moon .moon-layer{animation-play-state:running !important}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -44,10 +45,10 @@
 
 <!-- ============ HERO ============ -->
 <section class="stage hero" aria-label="Hunkie Dorie and the Kite of Destiny">
-  <img class="bg" src="/images/hero-bg-nomoon.png" alt="" fetchpriority="high">
+  <img class="bg" src="/images/hero-bg-nomoon.png" alt="" fetchpriority="high" onload="this.parentNode.classList.add('bg-ready')">
   <div class="sky-moon" aria-hidden="true">
-    <img class="moon-layer" src="/images/moon.png" alt="">
-    <img src="/images/mountain-front.png" alt="">
+    <img class="moon-layer" src="/images/moon.png" alt="" fetchpriority="low">
+    <img src="/images/mountain-front.png" alt="" fetchpriority="low">
   </div>
   <div class="sky-clouds" aria-hidden="true">
     <span style="--top:21;--w:36;--h:12;--t:150s;--d:-45s;--end:278%;--k:1.0"></span>
