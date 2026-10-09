@@ -868,3 +868,40 @@ html, body, *, *::before, *::after {
   cursor: url("data:image/png;base64,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") 5 5, auto !important;
 }
 input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea { cursor: text !important; }
+
+/* ---------- Fireflies ----------
+   About a dozen and a half tiny lights that blink on and off in the tall grass
+   of the home-page hero. Each one has its own spot (--x and --y are percentages
+   across and down the picture), size (--s), blink speed (--b) and drift (--m, --dx, --dy)
+   so they never flicker in step. They sit behind the kite and title. */
+.fireflies { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.fireflies span {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: var(--s); height: var(--s);
+  border-radius: 50%;
+  background: #ffffd6;
+  box-shadow: 0 0 3px 1px rgba(246, 255, 150, 1), 0 0 9px 4px rgba(200, 245, 80, .6);
+  opacity: 0;
+  animation:
+    firefly-blink var(--b) var(--bd) ease-in-out infinite,
+    firefly-drift var(--m) var(--md) ease-in-out infinite alternate;
+}
+@keyframes firefly-blink {
+  0%, 100% { opacity: 0; }
+  6%  { opacity: 1; }
+  12% { opacity: .2; }
+  19% { opacity: .95; }
+  30% { opacity: 0; }
+  62% { opacity: 0; }
+  68% { opacity: .75; }
+  76% { opacity: 0; }
+}
+@keyframes firefly-drift {
+  from { translate: 0 0; }
+  to   { translate: var(--dx) var(--dy); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fireflies span { animation: none; opacity: .55; }
+}
