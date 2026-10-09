@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects – keeps old Wix links (and Google results) working.
+/category/all-products   /shop   301
+/category/*              /shop   301
+/product-page/*          /shop   301
+/busypaws-1              /busypaws   301
+/hunkiedorie             /   301
+/hunkiedorie/*           /:splat   301

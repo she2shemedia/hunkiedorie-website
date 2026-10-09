@@ -1,0 +1,653 @@
+/* =========================================================
+   A. M. French – Hunkie Dorie website
+   Plain HTML + CSS, rebuilt from the Wix Studio version.
+   ========================================================= */
+
+/* ---------- Fonts ----------
+   The Wix site used "American Typewriter" (built into Macs and iPhones).
+   On other devices "Cutive" from Google Fonts is used as the closest free match. */
+
+:root {
+  --ink: #23022e;          /* deep plum used for most text */
+  --nav: #521cee;          /* menu link purple */
+  --lavender: #a697f7;     /* Letters from Hunkie band */
+  --quote: #885cf8;        /* quote marks */
+  --blue: #0869d9;         /* Submit button */
+  --link: #1a6aff;         /* "Show More" links */
+  --type: "American Typewriter", "Cutive", "Courier New", serif;
+  --sans: "Poppins", "Helvetica Neue", Arial, sans-serif;
+  --plain: "Helvetica Neue", Arial, sans-serif;
+
+  /* Shadows copied from the Wix design */
+  --shadow-soft: 2.7px 2px 2.25px rgba(173, 173, 173, 0.65);
+  --shadow-plum: 1.8px 1.3px 2.25px rgba(35, 2, 46, 0.67);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #000;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+p { margin: 0 0 1em; }
+p:last-child { margin-bottom: 0; }
+h1, h2, h3 { margin: 0; font-weight: 400; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute; left: 8px; top: -60px; z-index: 100;
+  background: #fff; color: var(--ink); padding: 8px 14px; border-radius: 4px;
+}
+.skip-link:focus { top: 8px; }
+
+/* The whole page is a size container, so positions can scale with the
+   browser width the same way Wix Studio did (1 design pixel = var(--u)). */
+.page { container-type: inline-size; overflow-x: clip; }
+
+/* =========================================================
+   HEADER (torn paper strip, stays at the top while scrolling)
+   ========================================================= */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: 112px;
+  pointer-events: none;
+}
+.site-header::before {
+  /* torn paper image repeated across the full width */
+  content: "";
+  position: absolute;
+  inset: -6px 0 0 0;
+  background: url("../images/paper-strip.png") left top / auto 100% repeat-x;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12));
+}
+.header-inner {
+  position: relative;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: 92px;
+  padding: 0 3% 0 41px;
+}
+.logo {
+  font-family: var(--type);
+  font-size: 30px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 2.12px 2.12px 2px #adadad;
+}
+.main-nav ul {
+  display: flex;
+  gap: clamp(10px, 2.2vw, 34px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.main-nav a {
+  font-family: var(--type);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--nav);
+  text-decoration: none;
+  white-space: nowrap;
+  text-shadow: 1.9px 0.62px 2px #adadad;
+}
+.main-nav a:hover,
+.main-nav a[aria-current="page"] { text-decoration: underline; }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.menu-toggle svg { width: 28px; height: 28px; display: block; }
+
+/* =========================================================
+   "STAGE" LAYOUT (desktop): items placed exactly like the Wix design.
+   Each item gets --x, --y, --w (and optional --r rotation) in design
+   pixels, measured on a 1425px-wide page.
+   ========================================================= */
+.stage {
+  --u: calc(100cqw / 1425);
+  position: relative;
+  height: calc(var(--sh) * var(--u));
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.abs {
+  position: absolute;
+  z-index: 1;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  transform: rotate(var(--r, 0deg));
+}
+.abs img { width: 100%; height: auto; }
+
+/* Paw-print buttons */
+.paw { display: block; transition: transform .25s ease; }
+.paw:hover, .paw:focus-visible { transform: rotate(var(--r, 0deg)) scale(1.07); }
+.paw img { filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .15)); }
+
+/* Headings */
+.h-section {
+  white-space: nowrap;
+  font-family: var(--type);
+  font-size: calc(56.32 * var(--u));
+  line-height: 1.3;
+  color: #000;
+  text-shadow: var(--shadow-soft);
+}
+
+/* Gentle fade/slide-in, like the Wix entrance animations */
+.reveal { opacity: 0; translate: 0 24px; transition: opacity .9s ease, translate .9s ease; }
+.reveal.is-visible { opacity: 1; translate: 0 0; }
+.kite-float { animation: kite 6s ease-in-out infinite; }
+@keyframes kite {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 6px -12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; translate: none; transition: none; }
+  .kite-float { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Hero ---------- */
+.hero { --sh: 819; }
+
+/* ---------- Paws menu over the clouds ---------- */
+.paws { --sh: 1015; }
+
+/* ---------- The Story ---------- */
+.story { --sh: 795; }
+.book-cover { filter: drop-shadow(6px 10px 10px rgba(0, 0, 0, .25)); }
+.story-text {
+  font-size: calc(16.9 * var(--u));
+  line-height: 1.3;
+  text-shadow: 1.85px 1.3px 2.25px rgba(173, 173, 173, .44);
+}
+
+/* ---------- The Storyteller ---------- */
+.storyteller { --sh: 1248; }
+.storyteller .h-section {
+  white-space: normal;
+  color: #fff;
+  text-shadow: 4px 4px 2.25px rgba(35, 2, 46, .87);
+}
+.storyteller-text {
+  color: #fff;
+  font-size: calc(20 * var(--u));
+  line-height: 1.3;
+  text-shadow: 2.4px 2.4px 2.25px #5e5362;
+}
+.storyteller .friends-heading {
+  white-space: nowrap;
+  color: #000;
+  text-shadow: 2.3px 2.5px 2.25px rgba(173, 173, 173, .63);
+}
+
+/* ---------- Friends in Need ---------- */
+.friends { --sh: 1700; }
+.friends-intro {
+  font-size: calc(20 * var(--u));
+  line-height: 1.3;
+  text-shadow: 2.4px 2.4px 2.25px rgba(173, 173, 173, .64);
+}
+.animal {
+  position: absolute;
+  z-index: 1;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: 315px;
+}
+.animal h3 {
+  font-family: var(--type);
+  font-size: 14px;
+  color: var(--ink);
+  margin: 0 0 22px;
+}
+.animal-text {
+  font-family: var(--plain);
+  font-size: 14px;
+  line-height: 1.25;
+  color: #000;
+}
+.animal-text p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin: 0;
+}
+.animal-text.open p { -webkit-line-clamp: unset; display: block; }
+.show-more {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-top: 4px;
+  font: inherit;
+  color: var(--link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- Hunkie's Cupboard ---------- */
+.cupboard { --sh: 877; }
+.cupboard .h-section { text-shadow: var(--shadow-plum); }
+.cupboard-sub {
+  font-size: calc(20 * var(--u));
+  text-align: center;
+  text-shadow: 0.92px 0.64px 2.25px rgba(35, 2, 46, .63);
+}
+
+/* ---------- Busy Paws ---------- */
+.busy { --sh: 1029; }
+.busy .bg { opacity: .79; }
+.busy .h-section { text-shadow: var(--shadow-plum); }
+
+/* ---------- Kind Words ---------- */
+.kind { --sh: 935; }
+.stars { display: flex; gap: calc(12 * var(--u)); }
+.stars svg { width: calc(10 * var(--u)); min-width: 8px; height: auto; }
+.kind .h-section { text-align: center; text-shadow: var(--shadow-plum); }
+.quote-mark { fill: var(--quote); }
+.kind-text {
+  font-family: var(--type);
+  font-size: calc(18 * var(--u));
+  line-height: 1.6;
+  color: var(--ink);
+}
+.kind-name { text-align: center; font-size: calc(18 * var(--u)); }
+.kind-role { text-align: center; font-size: calc(16 * var(--u)); margin-top: 8px; }
+
+/* ---------- Video ---------- */
+.video-band { background: #000; line-height: 0; }
+.video-band video {
+  width: 100%;
+  aspect-ratio: 1421 / 829;
+  object-fit: cover;
+  display: block;
+}
+
+/* =========================================================
+   LETTERS FROM HUNKIE (newsletter sign-up, used on every page)
+   ========================================================= */
+.letters {
+  background: var(--lavender);
+  color: #fff;
+  padding: 55px 58px 110px;
+}
+.letters h2 {
+  font-family: var(--type);
+  font-size: 40px;
+  line-height: 1.3;
+  text-shadow: 2.7px 2px 2.25px rgba(35, 2, 46, .66);
+  margin-bottom: 40px;
+}
+.letters form { max-width: 1310px; }
+.field { margin-bottom: 22px; }
+.field label {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 16px;
+  margin: 0 0 10px;
+}
+.field input {
+  width: 100%;
+  height: 59px;
+  padding: 0 28px;
+  border: 1px solid #fff;
+  border-radius: 100px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--type);
+  font-size: clamp(20px, 2.4vw, 35px);
+}
+.field input::placeholder { color: rgba(255, 255, 255, .85); }
+.field input:focus { outline: 2px solid var(--ink); outline-offset: 2px; }
+.form-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 30px;
+}
+.consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--type);
+  font-size: clamp(16px, 1.6vw, 22px);
+  cursor: pointer;
+}
+.consent input { width: 18px; height: 18px; accent-color: var(--ink); }
+.btn-submit {
+  flex: 0 0 auto;
+  width: min(535px, 45%);
+  height: 64px;
+  border: 0;
+  border-radius: 100px;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--type);
+  font-size: clamp(22px, 2.4vw, 35px);
+  cursor: pointer;
+  transition: filter .2s;
+}
+.btn-submit:hover { filter: brightness(1.12); }
+.form-note { margin-top: 18px; font-size: 15px; min-height: 1.2em; }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.site-footer {
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+}
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("../images/hero-bg.png") center / cover no-repeat;
+  opacity: .28;
+}
+.footer-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 24px 40px;
+  padding: 42px 43px 14px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 16px;
+}
+.footer-links { list-style: none; margin: 0; padding: 0; line-height: 31px; }
+.footer-links a, .footer-contact a { text-decoration: none; color: #000; }
+.footer-links a:hover, .footer-contact a:hover { text-decoration: underline; }
+.footer-contact { margin-top: 36px; line-height: 1.7; font-style: normal; }
+.footer-contact p { margin: 0 0 .9em; }
+.socials { display: flex; gap: 15px; align-self: end; padding-bottom: 6px; }
+.socials a {
+  display: grid; place-items: center;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: #fff; color: #000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+}
+.socials svg { width: 20px; height: 20px; fill: currentColor; }
+.copyright {
+  grid-column: 1 / -1;
+  font-weight: 200;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* =========================================================
+   INNER PAGES (Press, Busy Paws, Coloring Pages, Shop, policies)
+   ========================================================= */
+.banner-page {
+  position: relative;
+  padding: 177px 24px 120px;
+  text-align: center;
+  color: var(--ink);
+}
+.banner-page .bg { z-index: 0; }
+.banner-page > *:not(.bg) { position: relative; z-index: 1; }
+.page-title {
+  font-family: var(--type);
+  font-size: clamp(40px, 4vw, 56px);
+  line-height: 1;
+}
+.page-title.xl { font-size: clamp(56px, 8vw, 114px); }
+.page-sub {
+  font-family: var(--type);
+  font-size: clamp(20px, 1.9vw, 26px);
+  line-height: 1.3;
+  margin: 24px auto 0;
+  max-width: 420px;
+}
+.media-kit-link { display: inline-block; margin-top: 30px; }
+.media-kit-link img { width: min(353px, 80vw); filter: drop-shadow(0 6px 12px rgba(0,0,0,.2)); transition: transform .25s; }
+.media-kit-link:hover img { transform: scale(1.03); }
+
+.single-printable { display: inline-flex; flex-direction: column; align-items: center; margin-top: 70px; text-decoration: none; }
+.single-printable img { width: min(295px, 70vw); transition: transform .25s; }
+.single-printable:hover img { transform: scale(1.03); }
+.single-printable span { font-family: var(--type); font-size: clamp(28px, 3vw, 39px); margin-top: 14px; }
+
+.coloring-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 230px));
+  justify-content: space-between;
+  gap: 62px 40px;
+  max-width: 1126px;
+  margin: 55px auto 0;
+}
+.coloring-grid a { display: block; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.15); transition: transform .25s; }
+.coloring-grid a:hover { transform: translateY(-4px); }
+.coloring-grid img { width: 100%; aspect-ratio: 230 / 329; object-fit: cover; }
+
+/* Shop */
+.shop-banner {
+  position: relative;
+  height: clamp(180px, 21cqw, 297px);
+  overflow: hidden;
+}
+.shop-banner .bg { opacity: 1; }
+.shop-banner h1 {
+  position: absolute;
+  left: 0; right: 0; bottom: 6%;
+  z-index: 1;
+  text-align: center;
+  font-family: var(--type);
+  font-size: clamp(28px, 4.6cqw, 72px);
+  color: var(--ink);
+  text-shadow: 0 0 12px rgba(255,255,255,.85), 0 0 3px #fff;
+  padding: 0 16px;
+}
+.shop-welcome {
+  text-align: center;
+  font-family: var(--type);
+  font-size: 26px;
+  color: var(--ink);
+  margin: 40px 16px 0;
+}
+.shop-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  max-width: 1240px;
+  margin: 60px auto 100px;
+  padding: 0 40px;
+}
+.shop-side h2 { font-size: 16px; font-weight: 600; color: var(--ink); padding-bottom: 12px; border-bottom: 1px solid #ccc; }
+.shop-side p { margin: 14px 0 34px; }
+.shop-side a { color: var(--link); text-decoration: none; }
+.shop-count { color: #888; font-family: var(--type); font-size: 14px; margin-bottom: 30px; }
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 70px 40px;
+}
+.product { text-align: center; }
+.product-media {
+  position: relative;
+  aspect-ratio: 1;
+  margin-bottom: 20px;
+}
+.product-media img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  transition: opacity .35s;
+}
+.product-media img + img { opacity: 0; }
+.product:hover .product-media img + img { opacity: 1; }
+.sale-tag {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  background: var(--ink); color: #fff; font-size: 12px; padding: 3px 10px;
+}
+.product h2 { font-size: 16px; font-weight: 600; color: var(--ink); }
+.price { margin: 8px 0 14px; color: #555; font-size: 15px; }
+.price s { color: #999; margin-right: 6px; }
+.price .now { color: #7c6cf0; }
+.btn-shop {
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 100px;
+  transition: filter .2s;
+}
+.btn-shop:hover { filter: brightness(1.6); }
+
+/* Policy pages */
+.legal {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 160px 24px 100px;
+  font-family: var(--type);
+  color: var(--ink);
+  line-height: 1.6;
+}
+.legal h1 { font-size: clamp(36px, 4vw, 52px); margin-bottom: 40px; }
+.legal h2 { font-size: 22px; margin: 36px 0 12px; }
+.legal ul { padding-left: 1.2em; }
+.legal li { margin-bottom: 6px; }
+
+/* =========================================================
+   TABLET + PHONE: stack everything in a readable column
+   ========================================================= */
+@media (max-width: 999px) {
+  html { scroll-padding-top: 70px; }
+  .site-header { height: 78px; }
+  .header-inner { height: 64px; padding: 0 16px; }
+  .logo { font-size: 24px; }
+  .menu-toggle { display: block; }
+  .main-nav {
+    position: absolute;
+    top: 64px; right: 12px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    padding: 12px 22px;
+    display: none;
+  }
+  .main-nav.open { display: block; }
+  .main-nav ul { flex-direction: column; gap: 0; }
+  .main-nav a { display: block; padding: 10px 0; font-size: 16px; }
+
+  .stage { height: auto; --u: 1px; }
+  .abs, .animal {
+    position: relative;
+    left: auto; top: auto;
+    width: auto;
+    margin-left: auto; margin-right: auto;
+  }
+  .h-section { font-size: 40px; white-space: normal; }
+
+  .hero { height: 78vw; min-height: 340px; }
+  .hero .title { position: absolute; left: 7%; right: 7%; top: 48%; width: auto; margin: 0; }
+  .hero .kite { position: absolute; left: 4%; top: 16%; width: 24%; margin: 0; }
+
+  .paws { padding: 90px 16px 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; justify-items: center; }
+  .paws .hunkie { grid-column: 1 / -1; max-width: 340px; order: -1; }
+  .paws .paw { max-width: 160px; width: 100%; }
+
+  .story { padding: 50px 20px 60px; }
+  .story .book-cover { max-width: 300px; }
+  .story .buy-now { max-width: 170px; margin-top: -10px; }
+  .story .h-section, .story-text { max-width: 560px; }
+  .story .h-section { margin-top: 30px; }
+  .story-text { font-size: 16px; margin-top: 10px; }
+
+  .storyteller { padding: 60px 20px 40px; }
+  .storyteller .headshot { max-width: 280px; }
+  .storyteller .h-section, .storyteller-text { max-width: 560px; }
+  .storyteller .h-section { margin-top: 24px; }
+  .storyteller-text { font-size: 17px; margin-top: 14px; }
+  .storyteller .panda-family { max-width: 200px; margin-top: 26px; }
+  .storyteller .friends-heading {
+    white-space: normal;
+    margin-top: 70px; max-width: 560px;
+    background: rgba(255,255,255,.85); padding: 4px 10px; border-radius: 8px; width: fit-content;
+  }
+
+  .friends { padding: 10px 20px 60px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 44px 30px; }
+  .friends-intro { grid-column: 1 / -1; font-size: 18px; max-width: 560px; }
+  .animal-card > img { max-height: 240px; width: auto; max-width: 100%; margin: 0 auto 14px; }
+  .animal { width: auto; }
+
+  .cupboard { padding: 40px 16px; min-height: 70vw; }
+  .cupboard .h-section, .cupboard-sub { text-align: center; background: rgba(255,255,255,.6); border-radius: 8px; }
+  .cupboard-sub { font-size: 17px; margin-top: 4px; }
+  .cupboard .open-sign { max-width: 170px; margin-top: 30vw; }
+
+  .busy { padding: 40px 16px 60px; }
+  .busy .printables { max-width: 300px; margin-top: 30px; }
+
+  .kind { padding: 60px 22px; }
+  .stars { justify-content: center; }
+  .stars svg { width: 10px; }
+  .kind .h-section { margin: 26px 0 30px; }
+  .kind .quote-open, .kind .quote-close { width: 40px; }
+  .kind .quote-close { margin-right: 0; }
+  .kind-text { font-size: 16px; max-width: 640px; margin: 10px auto; }
+  .kind-name { font-size: 18px; margin-top: 24px; }
+  .kind-role { font-size: 16px; }
+
+  .letters { padding: 40px 20px 60px; }
+  .letters h2 { font-size: 32px; margin-bottom: 24px; }
+  .form-bottom { flex-direction: column; align-items: stretch; }
+  .btn-submit { width: 100%; }
+
+  .footer-inner { grid-template-columns: 1fr; padding: 32px 22px 14px; }
+  .footer-contact { margin-top: 0; }
+
+  .coloring-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; padding: 0 8px; }
+  .shop-layout { grid-template-columns: 1fr; padding: 0 20px; gap: 10px; }
+  .shop-side { display: none; }
+  .banner-page { padding-top: 120px; }
+  .legal { padding-top: 120px; }
+}
+
+@media (max-width: 560px) {
+  .products { grid-template-columns: 1fr; }
+  .coloring-grid { gap: 18px; }
+  .letters h2 { font-size: 28px; }
+}
