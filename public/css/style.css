@@ -714,3 +714,15 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   .coloring-grid { gap: 18px; }
   .letters h2 { font-size: 28px; }
 }
+
+/* ---------- Kite cursor ----------
+   A tiny copy of the home-page kite replaces the mouse pointer on every page.
+   The two numbers after each image are the "hot spot": the kite's upper-left tip,
+   which is the exact point that does the clicking. Phones and tablets have no
+   mouse pointer, so this only shows on computers. Text boxes keep the normal
+   text cursor so people can see where they are typing. */
+*, *::before, *::after {
+  cursor: url("/images/kite-cursor.png") 5 5, auto !important;
+  cursor: image-set(url("/images/kite-cursor.png") 1x, url("/images/kite-cursor@2x.png") 2x) 5 5, auto !important;
+}
+input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea { cursor: text !important; }
