@@ -1017,10 +1017,11 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
    The moon and mountain stay hidden, and the animation stays paused, until the
    main sky picture has finished loading (the little script on the sky <img> in
    index.html adds the class "bg-ready"), so they never show up before the sky.
-   Speed: one full cycle is 74s (about 70s of rising, then a short pause, and then
-   it starts over). Change the 74s below, and the 94.6% line if you want a longer
-   or shorter gap before it comes back (94.6% = 70s of 74s).
-   The moon starts 17.5% down (hidden behind the peak) and ends 58% up (off the top). */
+   Speed: one full cycle is 54s. The moon first slips up behind the peak (the
+   first 3%), then rises steadily until it is off the top (97%), and then it
+   starts over. For a longer or shorter wait before it comes back, change the
+   54s; for a faster or slower climb, change the 54s too (they move together).
+   The moon starts 17.5% down (hidden behind the peak) and ends 40% up (off the top). */
 .sky-moon { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; opacity: 0; transition: opacity 1.5s ease; }
 .hero.bg-ready .sky-moon { opacity: 1; }
 .sky-moon img {
@@ -1029,16 +1030,61 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
   object-fit: cover;
 }
 .sky-moon .moon-layer {
-  animation: moon-rise 74s 1s linear infinite both;
+  animation: moon-rise 54s 1s linear infinite both;
   animation-play-state: paused;
   will-change: transform;
 }
 .hero.bg-ready .sky-moon .moon-layer { animation-play-state: running; }
 @keyframes moon-rise {
-  0%    { transform: translateY(17.5%); }
-  94.6% { transform: translateY(-58%); }
-  100%  { transform: translateY(-58%); }
+  0%   { transform: translateY(17.5%); }
+  3%   { transform: translateY(13%); }
+  97%  { transform: translateY(-40%); }
+  100% { transform: translateY(-40%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .sky-moon .moon-layer { animation: none; transform: none; }
+}
+
+/* ---------- Hearth glow in the little house's window (home-page hero) ----------
+   Two see-through pictures, the same size as the sky picture, so they line up
+   with the window on every screen. One brightens the window itself and one is
+   the soft orange glow around it. They use "screen" blending (light added on top
+   of the painting) and flicker at different speeds, like a fire in a fireplace.
+   To make the glow stronger or weaker, change the opacity numbers in the two
+   @keyframes below (1 = brightest). They start once the sky has loaded. */
+.hearth-layer {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.hero.bg-ready .hearth-core { animation: hearth-core 6.3s ease-in-out infinite; }
+.hero.bg-ready .hearth-halo { animation: hearth-halo 9.1s ease-in-out infinite; }
+@keyframes hearth-core {
+  0%, 100% { opacity: .70; }
+  8%  { opacity: .42; }
+  15% { opacity: .85; }
+  24% { opacity: .55; }
+  33% { opacity: .90; }
+  41% { opacity: .60; }
+  52% { opacity: .80; }
+  60% { opacity: .38; }
+  71% { opacity: .88; }
+  80% { opacity: .58; }
+  90% { opacity: .76; }
+}
+@keyframes hearth-halo {
+  0%, 100% { opacity: .55; }
+  12% { opacity: .75; }
+  27% { opacity: .40; }
+  38% { opacity: .80; }
+  50% { opacity: .50; }
+  63% { opacity: .85; }
+  77% { opacity: .45; }
+  88% { opacity: .70; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero.bg-ready .hearth-layer { animation: none; opacity: .6; }
 }
