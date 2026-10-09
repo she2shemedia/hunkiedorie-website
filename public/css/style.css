@@ -185,7 +185,8 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
 .hero .kite img {
   animation:
     kite-swirl 9s linear both,
-    kite-bob 5s 9s ease-in-out infinite;
+    kite-bob 5.3333s 9s 3 ease-in-out,
+    kite-figure8 16s 25s linear infinite;
   will-change: translate, scale, rotate;
   backface-visibility: hidden;
 }
@@ -311,6 +312,79 @@ h1, h2, h3 { margin: 0; font-weight: 400; }
   0%, 100% { translate: 0 0; rotate: 0deg; }
   30%      { translate: 4% -6%; rotate: 5deg; }
   65%      { translate: -3% 3%; rotate: -4deg; }
+}
+/* Once the kite has landed on the left (9s swirl + 16s flight = 25s), it drifts in a slow
+   figure 8 (16s per loop) and keeps going. The loop starts at the kite's landing spot and
+   swings only to the LEFT of it (up to 44% of the kite's own width), so it never drifts
+   toward the title. It moves about 16% of its height up and down. For a bigger or smaller
+   figure 8, change those numbers (the "22%" steps below are half the width); for a faster
+   or slower one, change the 16s on the "kite-figure8" line above. */
+@keyframes kite-figure8 {
+  0% { translate: 0.0% 0.0%; rotate: 0.0deg; }
+  1.562% { translate: -0.1% -3.1%; rotate: -0.8deg; }
+  3.125% { translate: -0.4% -6.1%; rotate: -1.6deg; }
+  4.688% { translate: -0.9% -8.9%; rotate: -2.3deg; }
+  6.25% { translate: -1.7% -11.3%; rotate: -3.1deg; }
+  7.812% { translate: -2.6% -13.3%; rotate: -3.8deg; }
+  9.375% { translate: -3.7% -14.8%; rotate: -4.4deg; }
+  10.938% { translate: -5.0% -15.7%; rotate: -5.1deg; }
+  12.5% { translate: -6.4% -16.0%; rotate: -5.7deg; }
+  14.062% { translate: -8.0% -15.7%; rotate: -6.2deg; }
+  15.625% { translate: -9.8% -14.8%; rotate: -6.7deg; }
+  17.188% { translate: -11.6% -13.3%; rotate: -7.1deg; }
+  18.75% { translate: -13.6% -11.3%; rotate: -7.4deg; }
+  20.312% { translate: -15.6% -8.9%; rotate: -7.7deg; }
+  21.875% { translate: -17.7% -6.1%; rotate: -7.8deg; }
+  23.438% { translate: -19.8% -3.1%; rotate: -8.0deg; }
+  25% { translate: -22.0% -0.0%; rotate: -8.0deg; }
+  26.562% { translate: -24.2% 3.1%; rotate: -8.0deg; }
+  28.125% { translate: -26.3% 6.1%; rotate: -7.8deg; }
+  29.688% { translate: -28.4% 8.9%; rotate: -7.7deg; }
+  31.25% { translate: -30.4% 11.3%; rotate: -7.4deg; }
+  32.812% { translate: -32.4% 13.3%; rotate: -7.1deg; }
+  34.375% { translate: -34.2% 14.8%; rotate: -6.7deg; }
+  35.938% { translate: -36.0% 15.7%; rotate: -6.2deg; }
+  37.5% { translate: -37.6% 16.0%; rotate: -5.7deg; }
+  39.062% { translate: -39.0% 15.7%; rotate: -5.1deg; }
+  40.625% { translate: -40.3% 14.8%; rotate: -4.4deg; }
+  42.188% { translate: -41.4% 13.3%; rotate: -3.8deg; }
+  43.75% { translate: -42.3% 11.3%; rotate: -3.1deg; }
+  45.312% { translate: -43.1% 8.9%; rotate: -2.3deg; }
+  46.875% { translate: -43.6% 6.1%; rotate: -1.6deg; }
+  48.438% { translate: -43.9% 3.1%; rotate: -0.8deg; }
+  50% { translate: -44.0% 0.0%; rotate: -0.0deg; }
+  51.562% { translate: -43.9% -3.1%; rotate: 0.8deg; }
+  53.125% { translate: -43.6% -6.1%; rotate: 1.6deg; }
+  54.688% { translate: -43.1% -8.9%; rotate: 2.3deg; }
+  56.25% { translate: -42.3% -11.3%; rotate: 3.1deg; }
+  57.812% { translate: -41.4% -13.3%; rotate: 3.8deg; }
+  59.375% { translate: -40.3% -14.8%; rotate: 4.4deg; }
+  60.938% { translate: -39.0% -15.7%; rotate: 5.1deg; }
+  62.5% { translate: -37.6% -16.0%; rotate: 5.7deg; }
+  64.062% { translate: -36.0% -15.7%; rotate: 6.2deg; }
+  65.625% { translate: -34.2% -14.8%; rotate: 6.7deg; }
+  67.188% { translate: -32.4% -13.3%; rotate: 7.1deg; }
+  68.75% { translate: -30.4% -11.3%; rotate: 7.4deg; }
+  70.312% { translate: -28.4% -8.9%; rotate: 7.7deg; }
+  71.875% { translate: -26.3% -6.1%; rotate: 7.8deg; }
+  73.438% { translate: -24.2% -3.1%; rotate: 8.0deg; }
+  75% { translate: -22.0% -0.0%; rotate: 8.0deg; }
+  76.562% { translate: -19.8% 3.1%; rotate: 8.0deg; }
+  78.125% { translate: -17.7% 6.1%; rotate: 7.8deg; }
+  79.688% { translate: -15.6% 8.9%; rotate: 7.7deg; }
+  81.25% { translate: -13.6% 11.3%; rotate: 7.4deg; }
+  82.812% { translate: -11.6% 13.3%; rotate: 7.1deg; }
+  84.375% { translate: -9.8% 14.8%; rotate: 6.7deg; }
+  85.938% { translate: -8.0% 15.7%; rotate: 6.2deg; }
+  87.5% { translate: -6.4% 16.0%; rotate: 5.7deg; }
+  89.062% { translate: -5.0% 15.7%; rotate: 5.1deg; }
+  90.625% { translate: -3.7% 14.8%; rotate: 4.4deg; }
+  92.188% { translate: -2.6% 13.3%; rotate: 3.8deg; }
+  93.75% { translate: -1.7% 11.3%; rotate: 3.1deg; }
+  95.312% { translate: -0.9% 8.9%; rotate: 2.3deg; }
+  96.875% { translate: -0.4% 6.1%; rotate: 1.6deg; }
+  98.438% { translate: -0.1% 3.1%; rotate: 0.8deg; }
+  100% { translate: 0.0% 0.0%; rotate: 0.0deg; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; translate: none; transition: none; }
