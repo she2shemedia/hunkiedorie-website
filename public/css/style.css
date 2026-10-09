@@ -914,7 +914,7 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
    in the same order as the lines in index.html), so every browser can animate it:
    - Clouds: the number after "cloud-drift-N" is the crossing time. Smaller = faster.
    - Mist: the number after "mist-rise-N" is how long one puff takes to rise.
-   Sizes and positions (--top, --w, --h, --k for clouds; --l, --w, --b for mist)
+   Sizes and positions (--top, --w, --h, --l, --w, --b for mist)
    are still set on each line in index.html. */
 .sky-clouds, .ground-mist { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
 .sky-clouds span {
@@ -923,19 +923,19 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea 
   top: calc(var(--top) * 1%);
   width: calc(var(--w) * 1%);
   height: calc(var(--h) * 1%);
-  opacity: var(--k);
+  opacity: .5;   /* 50% see-through: raise toward 1 for denser clouds */
   background:
-    radial-gradient(ellipse 26% 44% at 27% 54%, rgba(120, 132, 196, .50), transparent 100%),
-    radial-gradient(ellipse 30% 48% at 50% 46%, rgba(138, 150, 210, .55), transparent 100%),
-    radial-gradient(ellipse 26% 42% at 73% 56%, rgba(112, 126, 190, .46), transparent 100%),
-    radial-gradient(ellipse 50% 26% at 50% 52%, rgba(196, 206, 244, .22), transparent 100%);
+    radial-gradient(ellipse 26% 44% at 27% 54%, rgba(255, 255, 255, .85), transparent 100%),
+    radial-gradient(ellipse 30% 48% at 50% 46%, rgba(255, 255, 255, .95), transparent 100%),
+    radial-gradient(ellipse 26% 42% at 73% 56%, rgba(255, 255, 255, .85), transparent 100%),
+    radial-gradient(ellipse 50% 26% at 50% 52%, rgba(255, 255, 255, .45), transparent 100%);
   transform: translateX(-100%);
   will-change: transform;
 }
-.sky-clouds span:nth-child(1) { animation: cloud-drift-1 80s -24s linear infinite; }
-.sky-clouds span:nth-child(2) { animation: cloud-drift-2 100s -58s linear infinite; }
-.sky-clouds span:nth-child(3) { animation: cloud-drift-3 90s -74s linear infinite; }
-.sky-clouds span:nth-child(4) { animation: cloud-drift-4 120s -54s linear infinite; }
+.sky-clouds span:nth-child(1) { animation: cloud-drift-1 36s -11s linear infinite; }
+.sky-clouds span:nth-child(2) { animation: cloud-drift-2 44s -26s linear infinite; }
+.sky-clouds span:nth-child(3) { animation: cloud-drift-3 40s -33s linear infinite; }
+.sky-clouds span:nth-child(4) { animation: cloud-drift-4 54s -24s linear infinite; }
 
 @keyframes cloud-drift-1 { from { transform: translateX(-100%); } to { transform: translateX(278%); } }
 @keyframes cloud-drift-2 { from { transform: translateX(-100%); } to { transform: translateX(333%); } }
